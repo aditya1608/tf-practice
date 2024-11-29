@@ -1,5 +1,6 @@
 output "login_password" {
   value = aws_iam_user_login_profile.adi.password
+  sensitive = true
 }
 
 output "access_key_id" {
