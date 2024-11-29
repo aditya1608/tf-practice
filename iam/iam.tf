@@ -12,6 +12,7 @@ resource "aws_iam_access_key" "adi" {
 
 resource "aws_iam_user_login_profile" "adi" {
     user = aws_iam_user.adi.name
+    password_reset_required = true
 }
 
 resource "aws_iam_user_policy_attachment" "adi" {
