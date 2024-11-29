@@ -13,6 +13,7 @@ resource "aws_iam_access_key" "aditya" {
 resource "aws_iam_user_login_profile" "aditya" {
     user = aws_iam_user.aditya.name
     password_length = 10
+    password_reset_required = true
 }
 
 resource "aws_iam_user_policy_attachment" "aditya" {
