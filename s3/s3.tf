@@ -6,7 +6,7 @@ resource "aws_s3_bucket" "mb" {
     bucket = var.bucket_name
     acl = "private" 
     versioning {
-        enables = false
+        enabled = false
     }
 
     tags = {
