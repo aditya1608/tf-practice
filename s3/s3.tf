@@ -11,11 +11,6 @@ resource "aws_s3_bucket" "mb" {
     }
 }
 
-resource "aws_s3_bucket_acl" "mb" {
-  bucket = aws_s3_bucket.mb.id
-  acl    = "private"
-}
-
 resource "aws_s3_bucket_versioning" "mb" {
   bucket = aws_s3_bucket.mb.id
   versioning_configuration {
