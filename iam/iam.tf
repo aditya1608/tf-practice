@@ -19,3 +19,8 @@ resource "aws_iam_user_policy_attachment" "adi" {
     user = aws_iam_user.adi.name
     policy_arn = var.policy_arn
 }
+
+resource "aws_iam_user_policy_attachment" "adip" {
+    user = aws_iam_user.adi.name
+    policy_arn = var.password_policy_arn
+}
