@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_iam_user" "adi" {
-  name = "adi"
+    name = "adi"
 }
 
 resource "aws_iam_access_key" "adi" {

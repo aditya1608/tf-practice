@@ -1,4 +1,9 @@
-variable "bucket_name" {
+variable "bucket_name1" {
   type        = string
-  description = "Enter bucket name"
+  description = "Enter bucket name1"
+}
+
+variable "bucket_name1" {
+  type        = string
+  description = "Enter bucket name2"
 }
