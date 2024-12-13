@@ -63,7 +63,7 @@ resource "aws_route_table" "rt-main-public" {
     vpc_id = aws_vpc.tt.id
     route {
         cidr_block = "0.0.0.0/0"
-        gateway_id = aws_internet_gateway.ig-public
+        gateway_id = aws_internet_gateway.ig-public.id
     } 
     tags = {
         Name = "rt-main-public" 
