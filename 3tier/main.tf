@@ -72,7 +72,7 @@ resource "aws_route_table" "rt-main-public" {
 
 resource "aws_main_route_table_association" "main-rt" {
     vpc_id = aws_vpc.tt.id
-    route_table_id = aws_route_table.rt-main-public 
+    route_table_id = aws_route_table.rt-main-public.id
 }
 
 resource "aws_route_table_association" "rt-pub1" {
