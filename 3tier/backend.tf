@@ -8,7 +8,7 @@ resource "aws_security_group" "app_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    security_groups = [ aws_security_group.web_sg.id ]
+    security_groups = [ aws_security_group.bastion_sg.id ]
   }
 
   ingress {
@@ -41,9 +41,9 @@ resource "aws_launch_template" "app-lt" {
     name = "app-lt"
     image_id = "ami-0dee22c13ea7a9a67"
     instance_type = "t2.micro"
-    key_name = "linux_key"
+    key_name = "aws_key"
     vpc_security_group_ids = [ aws_security_group.app_sg.id ]
-    user_data = filebase64("./mysql.sh")
+    #user_data = filebase64("./mysql.sh")
 }
 
 resource "aws_autoscaling_group" "web-asg" {
@@ -63,11 +63,11 @@ resource "aws_lb_target_group" "tg-app" {
   port     = 80
   protocol = "HTTP"
   vpc_id = aws_vpc.tt.id
-  health_check {
-    path = "/"
-    port = 80
-    protocol = "HTTP"
-  }
+  # health_check {
+  #   path = "/"
+  #   port = 80
+  #   protocol = "HTTP"
+  # }
 }
 
 resource "aws_lb" "app_lb" {

@@ -18,12 +18,12 @@ resource "aws_security_group" "web_sg" {
     cidr_blocks = ["0.0.0.0/0"] # Allow HTTP from anywhere
   }
 
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] # Allow HTTPS from anywhere
-  }
+  # ingress {
+  #   from_port   = 443
+  #   to_port     = 443
+  #   protocol    = "tcp"
+  #   cidr_blocks = ["0.0.0.0/0"] # Allow HTTPS from anywhere
+  # }
 
   # Egress rules (Outbound traffic)
   egress {
@@ -42,9 +42,9 @@ resource "aws_launch_template" "lt" {
     name = "web-lt"
     image_id = "ami-0dee22c13ea7a9a67"
     instance_type = "t2.micro"
-    key_name = "linux_key"
+    key_name = "aws_key"
     vpc_security_group_ids = [ aws_security_group.web_sg.id ]
-    user_data = filebase64("./apache-install.sh")
+    #user_data = filebase64("./apache-install.sh")
 }
 
 resource "aws_autoscaling_group" "web-asg" {

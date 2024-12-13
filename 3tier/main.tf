@@ -4,6 +4,7 @@ provider "aws" {
 
 resource "aws_vpc" "tt" {
     cidr_block = "10.0.0.0/16"
+    instance_tenancy = "default"
     tags = {
         Name = "tt"
     }
@@ -11,42 +12,42 @@ resource "aws_vpc" "tt" {
 
 resource "aws_subnet" "public1" {
     vpc_id = aws_vpc.tt.id
-    cidr_block = "10.0.0.0/20"
+    cidr_block = "10.0.0.0/24"
     availability_zone = "ap-south-1a"
     map_public_ip_on_launch = true
 }
 
 resource "aws_subnet" "public2" {
     vpc_id = aws_vpc.tt.id
-    cidr_block = "10.0.16.0/20"
+    cidr_block = "10.0.16.0/24"
     availability_zone = "ap-south-1b"
     map_public_ip_on_launch = true
 }
 
 resource "aws_subnet" "private1" {
     vpc_id = aws_vpc.tt.id
-    cidr_block = "10.0.128.0/20"  
+    cidr_block = "10.0.128.0/24"  
     availability_zone = "ap-south-1a"
     map_public_ip_on_launch = false
 }
 
 resource "aws_subnet" "private2" {
     vpc_id = aws_vpc.tt.id
-    cidr_block = "10.0.144.0/20"  
+    cidr_block = "10.0.144.0/24"  
     availability_zone = "ap-south-1b"
     map_public_ip_on_launch = false
 }
 
 resource "aws_subnet" "private3" {
     vpc_id = aws_vpc.tt.id
-    cidr_block = "10.0.160.0/20"  
+    cidr_block = "10.0.160.0/24"  
     availability_zone = "ap-south-1a"
     map_public_ip_on_launch = false
 }
 
 resource "aws_subnet" "private4" {
     vpc_id = aws_vpc.tt.id
-    cidr_block = "10.0.176.0/20"  
+    cidr_block = "10.0.176.0/24"  
     availability_zone = "ap-south-1b"
     map_public_ip_on_launch = false
 }
