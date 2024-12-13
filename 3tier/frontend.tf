@@ -79,9 +79,7 @@ resource "aws_lb_target_group" "tg-web" {
   health_check {
     healthy_threshold   = 3
     unhealthy_threshold = 2
-    matcher = {
-      http_code_ranges = "200-299"
-    }
+    matcher = "200-299"
     interval            = 30
     timeout             = 5
   }
