@@ -53,7 +53,7 @@ resource "aws_autoscaling_group" "web-asg" {
     desired_capacity = 2
     launch_template {
         id = aws_launch_template.lt.id
-        version = aws_launch_template.lt.latest_version
+        #version = aws_launch_template.lt.latest_version
     }  
     vpc_zone_identifier = [ aws_subnet.public1.id, aws_subnet.public2.id ]
     target_group_arns = [aws_lb_target_group.tg-web.arn]

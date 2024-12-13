@@ -52,7 +52,7 @@ resource "aws_autoscaling_group" "app-asg" {
     desired_capacity = 2
     launch_template {
         id = aws_launch_template.app-lt.id
-        version = aws_launch_template.app-lt.latest_version
+        #version = aws_launch_template.app-lt.latest_version
     }  
     vpc_zone_identifier = [ aws_subnet.private1.id, aws_subnet.private2.id]
     target_group_arns = [aws_lb_target_group.tg-app.arn]
