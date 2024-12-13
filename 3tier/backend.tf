@@ -39,7 +39,7 @@ resource "aws_security_group" "app_sg" {
 
 resource "aws_launch_template" "app-lt" {
     name = "app-lt"
-    image_id = "ami-0dee22c13ea7a9a67"
+    image_id = "ami-022ce6f32988af5fa"
     instance_type = "t2.micro"
     key_name = "aws_key"
     vpc_security_group_ids = [ aws_security_group.app_sg.id ]
