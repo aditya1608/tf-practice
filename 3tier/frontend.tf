@@ -77,9 +77,13 @@ resource "aws_lb_target_group" "tg-web" {
   protocol = "HTTP"
   vpc_id = aws_vpc.tt.id
   health_check {
-    path = "/"
-    port = 80
-    protocol = "HTTP"
+    healthy_threshold   = 3
+    unhealthy_threshold = 2
+    matcher = {
+      http_code_ranges = ["200-299"]
+    }
+    interval            = 30
+    timeout             = 5
   }
 }
 
