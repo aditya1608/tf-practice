@@ -46,7 +46,7 @@ resource "aws_launch_template" "app-lt" {
     #user_data = filebase64("./mysql.sh")
 }
 
-resource "aws_autoscaling_group" "web-asg" {
+resource "aws_autoscaling_group" "app-asg" {
     max_size = 5
     min_size = 2
     desired_capacity = 2
