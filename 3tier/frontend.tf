@@ -44,7 +44,7 @@ resource "aws_launch_template" "lt" {
     instance_type = "t2.micro"
     key_name = "aws_key"
     vpc_security_group_ids = [ aws_security_group.web_sg.id ]
-    #user_data = filebase64("./apache-install.sh")
+    user_data = filebase64("./apache-install.sh")
 }
 
 resource "aws_autoscaling_group" "web-asg" {
