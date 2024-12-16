@@ -3,34 +3,27 @@ resource "aws_security_group" "web_sg" {
   description = "Allow HTTP/S and SSH traffic"
   vpc_id      = aws_vpc.tt.id
 
-  # Ingress rules (Inbound traffic)
+  # Inbound traffic
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] # Allow SSH from anywhere (use cautiously!)
+    cidr_blocks = ["0.0.0.0/0"] 
   }
 
   ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] # Allow HTTP from anywhere
+    cidr_blocks = ["0.0.0.0/0"] 
   }
 
-  # ingress {
-  #   from_port   = 443
-  #   to_port     = 443
-  #   protocol    = "tcp"
-  #   cidr_blocks = ["0.0.0.0/0"] # Allow HTTPS from anywhere
-  # }
-
-  # Egress rules (Outbound traffic)
+  # Outbound traffic
   egress {
     from_port   = 0
     to_port     = 0
-    protocol    = "-1" # All protocols
-    cidr_blocks = ["0.0.0.0/0"] # Allow outbound traffic to anywhere
+    protocol    = "-1" 
+    cidr_blocks = ["0.0.0.0/0"] 
   }
 
   tags = {
@@ -40,20 +33,20 @@ resource "aws_security_group" "web_sg" {
 
 resource "aws_launch_template" "lt" {
     name = "web-lt"
-    image_id = "ami-022ce6f32988af5fa"
-    instance_type = "t2.micro"
-    key_name = "aws_key"
+    image_id = var.image_id
+    instance_type = var.instance_type
+    key_name = var.key_pair
     vpc_security_group_ids = [ aws_security_group.web_sg.id ]
     user_data = filebase64("./apache-install.sh")
 }
 
 resource "aws_autoscaling_group" "web-asg" {
+    name = "web-asg"
     max_size = 4
     min_size = 1
     desired_capacity = 1
     launch_template {
         id = aws_launch_template.lt.id
-        #version = aws_launch_template.lt.latest_version
     }  
     vpc_zone_identifier = [ aws_subnet.public1.id, aws_subnet.public2.id ]
     target_group_arns = [aws_lb_target_group.tg-web.arn]

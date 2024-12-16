@@ -36,7 +36,7 @@ resource "aws_db_subnet_group" "db_subnet_grp" {
 
 resource "aws_db_instance" "my-db" {
     identifier           = "my-db"
-    allocated_storage    = 20
+    allocated_storage    =  20
     db_name              = "mydb"
     engine               = "mysql"
     engine_version       = "8.0"
@@ -44,10 +44,10 @@ resource "aws_db_instance" "my-db" {
     username             = "admin"
     password             = "admin123"
     parameter_group_name = "default.mysql8.0"
-    multi_az             = false
-    skip_final_snapshot  = true  
-    publicly_accessible  = false
+    multi_az             =  false
+    skip_final_snapshot  =  true  
+    publicly_accessible  =  false
     availability_zone    = "ap-south-1a"
-    db_subnet_group_name = aws_db_subnet_group.db_subnet_grp.name
+    db_subnet_group_name =  aws_db_subnet_group.db_subnet_grp.name
     vpc_security_group_ids = [ aws_security_group.db_sg.id ]
 }

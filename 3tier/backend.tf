@@ -3,12 +3,25 @@ resource "aws_security_group" "app_sg" {
   description = "backend sg"
   vpc_id      = aws_vpc.tt.id
 
-  # Ingress rules (Inbound traffic)
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
     security_groups = [ aws_security_group.web_sg.id ]
+  }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] 
+  }
+
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] 
   }
 
   ingress {
@@ -18,19 +31,12 @@ resource "aws_security_group" "app_sg" {
     security_groups = [ aws_security_group.web_sg.id ]
   }
 
-  # ingress {
-  #   from_port   = 3306
-  #   to_port     = 3306
-  #   protocol    = "tcp"
-  #   security_groups = [ aws_security_group.db_sg.id ]
-  # }
-
-  # egress {
-  #   from_port   = 3306
-  #   to_port     = 3306
-  #   protocol    = "tcp" 
-  #   security_groups = [ aws_security_group.db_sg.id ] 
-  # }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1" 
+    cidr_blocks = ["0.0.0.0/0"] 
+  }
 
   tags = {
     Name = "app-security-group"
@@ -39,20 +45,19 @@ resource "aws_security_group" "app_sg" {
 
 resource "aws_launch_template" "app-lt" {
     name = "app-lt"
-    image_id = "ami-022ce6f32988af5fa"
-    instance_type = "t2.micro"
-    key_name = "aws_key"
+    image_id = var.image_id
+    instance_type = var.instance_type
+    key_name = var.key_pair
     vpc_security_group_ids = [ aws_security_group.app_sg.id ]
-    #user_data = filebase64("./mysql.sh")
 }
 
 resource "aws_autoscaling_group" "app-asg" {
+    name = "app-asg" 
     max_size = 4
     min_size = 1
     desired_capacity = 1
     launch_template {
         id = aws_launch_template.app-lt.id
-        #version = aws_launch_template.app-lt.latest_version
     }  
     vpc_zone_identifier = [ aws_subnet.private1.id, aws_subnet.private2.id]
     target_group_arns = [aws_lb_target_group.tg-app.arn]
@@ -60,19 +65,19 @@ resource "aws_autoscaling_group" "app-asg" {
 
 resource "aws_lb_target_group" "tg-app" {
   name     = "tg-app"
-  port     = 80
+  port     = 8080
   protocol = "HTTP"
   vpc_id = aws_vpc.tt.id
-  # health_check {
-  #   path = "/"
-  #   port = 80
-  #   protocol = "HTTP"
-  # }
+  health_check {
+    path = "/"
+    port = 8080
+    protocol = "HTTP"
+  }
 }
 
 resource "aws_lb" "app_lb" {
   name               = "app-lb"
-  internal           = true
+  internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.app_sg.id]
   subnets            = [aws_subnet.private1.id, aws_subnet.private2.id]

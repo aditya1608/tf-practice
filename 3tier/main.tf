@@ -15,6 +15,9 @@ resource "aws_subnet" "public1" {
     cidr_block = "10.0.0.0/24"
     availability_zone = "ap-south-1a"
     map_public_ip_on_launch = true
+    tags = {
+        Name = "public1"
+    }
 }
 
 resource "aws_subnet" "public2" {
@@ -22,6 +25,9 @@ resource "aws_subnet" "public2" {
     cidr_block = "10.0.16.0/24"
     availability_zone = "ap-south-1b"
     map_public_ip_on_launch = true
+    tags = {
+        Name = "public2"
+    }
 }
 
 resource "aws_subnet" "private1" {
@@ -29,6 +35,9 @@ resource "aws_subnet" "private1" {
     cidr_block = "10.0.128.0/24"  
     availability_zone = "ap-south-1a"
     map_public_ip_on_launch = false
+    tags = {
+        Name = "private1"
+    }
 }
 
 resource "aws_subnet" "private2" {
@@ -36,6 +45,9 @@ resource "aws_subnet" "private2" {
     cidr_block = "10.0.144.0/24"  
     availability_zone = "ap-south-1b"
     map_public_ip_on_launch = false
+    tags = {
+        Name = "private2"
+    }
 }
 
 resource "aws_subnet" "private3" {
@@ -43,6 +55,9 @@ resource "aws_subnet" "private3" {
     cidr_block = "10.0.160.0/24"  
     availability_zone = "ap-south-1a"
     map_public_ip_on_launch = false
+    tags = {
+        Name = "private3"
+    }
 }
 
 resource "aws_subnet" "private4" {
@@ -50,6 +65,9 @@ resource "aws_subnet" "private4" {
     cidr_block = "10.0.176.0/24"  
     availability_zone = "ap-south-1b"
     map_public_ip_on_launch = false
+    tags = {
+        Name = "private4"
+    }
 }
 
 resource "aws_internet_gateway" "ig-public" {
@@ -92,6 +110,9 @@ resource "aws_eip" "nat-eip" {
 resource "aws_nat_gateway" "public-nat" {
     allocation_id = aws_eip.nat-eip.id
     subnet_id = aws_subnet.public1.id
+    tags = {
+        Name = "nat-gw"
+    } 
 }
 
 resource "aws_route_table" "rt-private" {
