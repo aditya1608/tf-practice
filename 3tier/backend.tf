@@ -47,9 +47,9 @@ resource "aws_launch_template" "app-lt" {
 }
 
 resource "aws_autoscaling_group" "app-asg" {
-    max_size = 5
-    min_size = 2
-    desired_capacity = 2
+    max_size = 4
+    min_size = 1
+    desired_capacity = 1
     launch_template {
         id = aws_launch_template.app-lt.id
         #version = aws_launch_template.app-lt.latest_version
