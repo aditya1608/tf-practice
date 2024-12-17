@@ -11,6 +11,6 @@ variable "instance_type" {
 }
 
 output "instance_type" {
-    value = [for type in var.instance_type: "${type}"]
+    value = [for key, type in var.instance_type: "${key} = ${type}"]
   
 }
