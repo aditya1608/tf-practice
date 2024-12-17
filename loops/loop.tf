@@ -4,13 +4,13 @@ provider "aws" {
 
 variable "instance_type" {
     default = {
-        "small" = "t2.small"
-        "micro" = "t2.micro"
-        "medium" = "t2.medium"
+        small = "t2.small"
+        micro = "t2.micro"
+        medium = "t2.medium"
     }  
 }
 
 output "instance_type" {
-    value = [for key, type in var.instance_type: "${key} = ${type}"]
+    value = [for key, type in var.instance_type: "${key}"]
   
 }
