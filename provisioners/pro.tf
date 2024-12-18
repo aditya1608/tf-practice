@@ -16,7 +16,7 @@ resource "aws_instance" "adi" {
 
         connection {
             type = "ssh"
-            user = "ubuntu"
+            user = "ec2-user"
             private_key = file("./aws_key.pem")
             host = self.public_ip
         }    
@@ -29,7 +29,7 @@ resource "aws_instance" "adi" {
 
         connection {
             type = "ssh"
-            user = "ubuntu"
+            user = "ec2-user"
             private_key = file("./aws_key.pem")
             host = self.public_ip
         }      
