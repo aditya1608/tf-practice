@@ -12,7 +12,14 @@ resource "aws_instance" "adi" {
 
     provisioner "file" {
         source = "./script.sh"
-        destination = "/tmp/script.sh"      
+        destination = "/tmp/script.sh"
+
+        connection {
+            type = "ssh"
+            user = "ec2-user"
+            private_key = file("./aws_key.pem")
+            host = self.public_ip
+        }    
     }
 
     provisioner "remote-exec" {
