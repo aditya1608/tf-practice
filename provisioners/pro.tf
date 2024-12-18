@@ -7,7 +7,7 @@ resource "aws_instance" "adi" {
     instance_type = "t2.micro"
     key_name = "aws_key"
     tags = {
-      name = "provisioner-example"
+      Name = "provisioner-example"
     }
 
     provisioner "file" {
