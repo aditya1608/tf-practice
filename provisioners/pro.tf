@@ -20,7 +20,7 @@ resource "aws_instance" "adi" {
         connection {
             type = "ssh"
             user = "ec2-user"
-            private_key = file("./id_rsa")
+            private_key = file("./aws_key.pem")
             host = self.public_ip
         }      
     }
