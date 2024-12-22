@@ -10,22 +10,21 @@ resource "aws_s3_bucket_ownership_controls" "mbow" {
   }
 }
 
-resource "aws_s3_bucket_public_access_block" "mba" {
-    bucket = aws_s3_bucket.mb.id
-    block_public_acls       = true
-    block_public_policy     = true
-    ignore_public_acls      = true
-    restrict_public_buckets = true  
-}
+# resource "aws_s3_bucket_public_access_block" "mba" {
+#     bucket = aws_s3_bucket.mb.id
+#     block_public_acls       = true
+#     block_public_policy     = true
+#     ignore_public_acls      = true
+#     restrict_public_buckets = true  
+# }
 
 resource "aws_s3_bucket_acl" "mbacl" {
   depends_on = [
-    aws_s3_bucket_ownership_controls.mbow,
-    aws_s3_bucket_public_access_block.mba,
+    aws_s3_bucket_ownership_controls.mbow
   ]
 
   bucket = aws_s3_bucket.mb.id
-  acl    = "public-read-write"
+  acl    = "bucket-owner-full-control"
 }
 
 resource "aws_s3_bucket_versioning" "mbv" {
