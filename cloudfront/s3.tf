@@ -24,7 +24,7 @@ resource "aws_s3_bucket_acl" "mbacl" {
   ]
 
   bucket = aws_s3_bucket.mb.id
-  acl    = "public-read"
+  acl    = "private"
 }
 
 resource "aws_s3_bucket_versioning" "mbv" {
@@ -35,10 +35,11 @@ resource "aws_s3_bucket_versioning" "mbv" {
 }
 
 resource "aws_s3_object" "mbo" { 
-    # depends_on = [
-    #   aws_s3_bucket_ownership_controls.mbow,
-    #   aws_s3_bucket_acl.mbacl
-    # ]
+    depends_on = [
+      aws_s3_bucket_ownership_controls.mbow,
+      aws_s3_bucket_acl.mbacl
+    ]
+
     bucket = aws_s3_bucket.mb.id
     key = "index.html"
     source = "./index.html"
