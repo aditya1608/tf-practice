@@ -25,7 +25,7 @@ resource "aws_s3_bucket_acl" "mbacl" {
   ]
 
   bucket = aws_s3_bucket.mb.id
-  acl    = "bucket-owner-full-contro"
+  acl    = "bucket-owner-full-control"
 }
 
 resource "aws_s3_bucket_versioning" "mbv" {
