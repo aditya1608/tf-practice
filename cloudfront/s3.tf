@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "mb" {
-    bucket = var.bucket_name
+    bucket = var.bucket_name #bucket-public2025
 }
 
 resource "aws_s3_bucket_ownership_controls" "mbow" {
@@ -10,18 +10,9 @@ resource "aws_s3_bucket_ownership_controls" "mbow" {
   }
 }
 
-resource "aws_s3_bucket_public_access_block" "mba" {
-    bucket = aws_s3_bucket.mb.id
-    block_public_acls       = false
-    block_public_policy     = false
-    ignore_public_acls      = false
-    restrict_public_buckets = false  
-}
-
 resource "aws_s3_bucket_acl" "mbacl" {
   depends_on = [
-    aws_s3_bucket_ownership_controls.mbow,
-    aws_s3_bucket_public_access_block.mba,
+    aws_s3_bucket_ownership_controls.mbow
   ]
 
   bucket = aws_s3_bucket.mb.id
