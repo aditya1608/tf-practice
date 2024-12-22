@@ -43,7 +43,7 @@ resource "aws_s3_object" "mbo" {
     bucket = aws_s3_bucket.mb.id
     key = "index.html"
     source = "./index.html"
-    acl = "public-read"
+    # acl = "public-read"
 }
 
 resource "aws_s3_bucket_website_configuration" "mbw" {
