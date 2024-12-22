@@ -24,7 +24,7 @@ resource "aws_s3_bucket_acl" "mbacl" {
   ]
 
   bucket = aws_s3_bucket.mb.id
-  acl    = "bucket-owner-full-control"
+  acl    = "public-read"
 }
 
 resource "aws_s3_bucket_versioning" "mbv" {
