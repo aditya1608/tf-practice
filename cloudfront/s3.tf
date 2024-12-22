@@ -18,6 +18,16 @@ resource "aws_s3_bucket_public_access_block" "mba" {
     restrict_public_buckets = false  
 }
 
+resource "aws_s3_bucket_acl" "mbacl" {
+  depends_on = [
+    aws_s3_bucket_ownership_controls.mbow,
+    aws_s3_bucket_public_access_block.mba,
+  ]
+
+  bucket = aws_s3_bucket.mb.id
+  acl    = "public-read"
+}
+
 resource "aws_s3_bucket_versioning" "mbv" {
     bucket = aws_s3_bucket.mb.id
     versioning_configuration {
