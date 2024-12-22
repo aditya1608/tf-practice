@@ -6,7 +6,7 @@ resource "aws_s3_bucket_ownership_controls" "mbow" {
   bucket = aws_s3_bucket.mb.id
 
   rule {
-    object_ownership = "BucketOwnerPreferred"
+    object_ownership = "BucketOwnerEnforced"
   }
 }
 
