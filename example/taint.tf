@@ -1,14 +1,3 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0" # Use a compatible AWS provider version
-    }
-  }
-
-  required_version = ">= 1.3.0" # Minimum Terraform version
-}
-
 provider "aws" {
     region = "ap-south-1"
 }
